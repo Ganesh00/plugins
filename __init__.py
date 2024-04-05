@@ -2391,4 +2391,3 @@ def _execution_mode(ctx, inputs):
 
 def register(p):
     p.register(ExportSamples)
-    p.register(DrawLabels)
