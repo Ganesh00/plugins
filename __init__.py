@@ -1469,50 +1469,69 @@ class ExportSamples(foo.Operator):
 
 
 def _export_samples_inputs(ctx, inputs):
-    has_view = ctx.view != ctx.dataset.view()
-    has_selected = bool(ctx.selected)
-    default_target = None
-    #target_choices = types.RadioGroup()
+    # has_view = ctx.view != ctx.dataset.view()
+    # has_selected = bool(ctx.selected)
+    # default_target = None
+    # #target_choices = types.RadioGroup()
     
-    if has_view or has_selected:
-        target_choices = types.RadioGroup()
-        target_choices.add_choice(
+    # if has_view or has_selected:
+    #     target_choices = types.RadioGroup()
+    #     target_choices.add_choice(
+    #         "DATASET",
+    #         label="Entire dataset",
+    #         description="Export the entire dataset",
+    #     )
+
+    #     target_choices.add_choice(
+    #         "VAL_OPS",
+    #         label="VALOps Dataset",
+    #         description="Export the VALOps dataset",
+    #     )
+    #     default_target = "VAL_OPS"
+    #     target_choices.add_choice(
+    #         "ML_OPS",
+    #         label="MLOps Dataset",
+    #         description="Export the MLOps dataset",
+    #     )
+    #     default_target = "ML_OPS"
+    
+
+    #     if has_view:
+    #         target_choices.add_choice(
+    #             "CURRENT_VIEW",
+    #             label="Current view",
+    #             description="Export the current view",
+    #         )
+    #         default_target = "CURRENT_VIEW"
+
+    #     if has_selected:
+    #         target_choices.add_choice(
+    #             "SELECTED_SAMPLES",
+    #             label="Selected samples",
+    #             description="Export only the selected samples",
+    #         )
+    #         default_target = "SELECTED_SAMPLES"
+    target_choices = types.RadioGroup()
+    target_choices.add_choice(
             "DATASET",
             label="Entire dataset",
             description="Export the entire dataset",
         )
 
-        target_choices.add_choice(
+    target_choices.add_choice(
             "VAL_OPS",
             label="VALOps Dataset",
             description="Export the VALOps dataset",
         )
-        default_target = "VAL_OPS"
-        target_choices.add_choice(
+    default_target = "VAL_OPS"
+    target_choices.add_choice(
             "ML_OPS",
             label="MLOps Dataset",
             description="Export the MLOps dataset",
         )
-        default_target = "ML_OPS"
-    
+    default_target = "ML_OPS"
 
-        if has_view:
-            target_choices.add_choice(
-                "CURRENT_VIEW",
-                label="Current view",
-                description="Export the current view",
-            )
-            default_target = "CURRENT_VIEW"
-
-        if has_selected:
-            target_choices.add_choice(
-                "SELECTED_SAMPLES",
-                label="Selected samples",
-                description="Export only the selected samples",
-            )
-            default_target = "SELECTED_SAMPLES"
-
-        inputs.enum(
+    inputs.enum(
             "target",
             target_choices.values(),
             default=default_target,
@@ -1658,16 +1677,17 @@ def _export_samples_inputs(ctx, inputs):
 
     if labels_path_type == "file":
         ext = _get_labels_path_ext(dataset_type)
-        file_explorer = types.FileExplorerView(button_label="Choose a file...")
-        prop = inputs.file(
-            "labels_path",
-            required=True,
-            label="Labels path",
-            description=f"Choose a {ext} path to write the labels",
-            view=file_explorer,
-        )
+        # file_explorer = types.FileExplorerView(button_label="Choose a file...")
+        # prop = inputs.file(
+        #     "labels_path",
+        #     required=True,
+        #     label="Labels path",
+        #     description=f"Choose a {ext} path to write the labels",
+        #     view=file_explorer,
+        # )
 
-        labels_path = _parse_path(ctx, "labels_path")
+        #labels_path = _parse_path(ctx, "labels_path")
+        labels_path = "\mnt\data"
         if labels_path is None:
             return False
 
