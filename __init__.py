@@ -1519,25 +1519,25 @@ def _export_samples_inputs(ctx, inputs):
         label="Filepaths only",
         description=f"Export the filepaths of the {target_str}",
     )
-    export_choices.add_choice(
-        "MEDIA_ONLY",
-        label="Media only",
-        description=f"Export media of the {target_str}",
-    )
-    export_choices.add_choice(
-        "LABELS_ONLY",
-        label="Labels only",
-        description=f"Export labels of the {target_str}",
-    )
-    export_choices.add_choice(
-        "MEDIA_AND_LABELS",
-        label="Media and labels",
-        description=f"Export media and labels of the {target_str}",
-    )
+    # export_choices.add_choice(
+    #     "MEDIA_ONLY",
+    #     label="Media only",
+    #     description=f"Export media of the {target_str}",
+    # )
+    # export_choices.add_choice(
+    #     "LABELS_ONLY",
+    #     label="Labels only",
+    #     description=f"Export labels of the {target_str}",
+    # )
+    # export_choices.add_choice(
+    #     "MEDIA_AND_LABELS",
+    #     label="Media and labels",
+    #     description=f"Export media and labels of the {target_str}",
+    # )
 
     inputs.enum(
         "export_type",
-        export_choices.values(),
+        export_choices.values()[0],
         required=True,
         label="Export type",
         description="Choose what to export",
@@ -1627,16 +1627,16 @@ def _export_samples_inputs(ctx, inputs):
             if fields is None:
                 return False
 
-    if _can_export_abs_paths(dataset_type):
-        inputs.bool(
-            "abs_paths",
-            default=False,
-            label="Absolute paths",
-            description=(
-                "Store absolute paths to the media in the exported labels?"
-            ),
-            view=types.CheckboxView(),
-        )
+    # if _can_export_abs_paths(dataset_type):
+    #     inputs.bool(
+    #         "abs_paths",
+    #         default=False,
+    #         label="Absolute paths",
+    #         description=(
+    #             "Store absolute paths to the media in the exported labels?"
+    #         ),
+    #         view=types.CheckboxView(),
+    #     )
 
     labels_path_type = _get_labels_path_type(dataset_type)
 
