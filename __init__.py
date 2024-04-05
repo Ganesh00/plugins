@@ -1483,17 +1483,17 @@ def _export_samples_inputs(ctx, inputs):
         )
 
         target_choices.add_choice(
-            "DATASET",
+            "VAL_OPS",
             label="VALOps Dataset",
             description="Export the VALOps dataset",
         )
-
+        default_target = "VAL_OPS"
         target_choices.add_choice(
-            "DATASET",
+            "ML_OPS",
             label="MLOps Dataset",
             description="Export the MLOps dataset",
         )
-    
+        default_target = "ML_OPS"
     
 
         if has_view:
