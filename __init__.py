@@ -1472,18 +1472,8 @@ def _export_samples_inputs(ctx, inputs):
     has_view = ctx.view != ctx.dataset.view()
     has_selected = bool(ctx.selected)
     default_target = None
-    target_choices = types.RadioGroup()
-    target_choices.add_choice(
-            "DATASET",
-            label="VALOps Dataset",
-            description="Export the VALOps dataset",
-        )
+    #target_choices = types.RadioGroup()
     
-    target_choices.add_choice(
-            "DATASET",
-            label="MLOps Dataset",
-            description="Export the MLOps dataset",
-        )
     if has_view or has_selected:
         target_choices = types.RadioGroup()
         target_choices.add_choice(
@@ -1491,6 +1481,20 @@ def _export_samples_inputs(ctx, inputs):
             label="Entire dataset",
             description="Export the entire dataset",
         )
+
+        target_choices.add_choice(
+            "DATASET",
+            label="VALOps Dataset",
+            description="Export the VALOps dataset",
+        )
+
+        target_choices.add_choice(
+            "DATASET",
+            label="MLOps Dataset",
+            description="Export the MLOps dataset",
+        )
+    
+    
 
         if has_view:
             target_choices.add_choice(
