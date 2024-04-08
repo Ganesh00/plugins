@@ -1,9 +1,9 @@
-name: "@voxel51/io"
-description: A collection of import/export utilities
+name: "@voxel51/tcs"
+description: A collection of export utilities
 version: 1.0.0
 fiftyone:
   version: ">=0.22.2"
 url: https://github.com/voxel51/fiftyone-plugins/tree/main/plugins/io
-license: Apache 2.0
+license: GPL
 operators:
   - tcs_export_samples
