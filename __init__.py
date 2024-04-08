@@ -1792,7 +1792,7 @@ def _export_samples_inputs(ctx, inputs):
     
     #inputs.view("estimate", types.Notice(label=label))
     inputs.view("filepath",types.Notice(label=label_fpath))
-    inputs.view("samples",types.Notice(label=targetMLVAL_str))
+    inputs.message("samples",types.Notice(label=targetMLVAL_str))
 
     return True
 
