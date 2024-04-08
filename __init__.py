@@ -1692,7 +1692,7 @@ def _export_samples_inputs(ctx, inputs):
         # )
 
         # labels_path = _parse_path(ctx, "labels_path")
-        labels_path = "/data/te"+str(time.time())+".csv"
+        labels_path = "/data/"+target_str+str(time.time())+".csv"
         if labels_path is None:
             return False
 
@@ -1777,9 +1777,9 @@ def _export_samples_inputs(ctx, inputs):
 
     size_bytes = _estimate_export_size(target_view, export_type, fields)
     size_str = etau.to_human_bytes_str(size_bytes)
-    label = f"Estimated export size: {size_str}"
-    label_fpath = f"File Path: {labels_path}"
-    inputs.view("estimate", types.Notice(label=label))
+    #label = f"Estimated export size: {size_str}"
+    label_fpath = f"Data Export File Path for {target_str}: {labels_path}"
+    #inputs.view("estimate", types.Notice(label=label))
     inputs.view("filepath",types.Notice(label=label_fpath))
 
     return True
@@ -1789,7 +1789,13 @@ def _export_samples(ctx):
     target = ctx.params.get("target", None)
     export_dir = _parse_path(ctx, "export_dir")
     #labels_path = _parse_path(ctx, "labels_path")
-    labels_path = "/data/te"+str(time.time())+".csv"
+    if target == "ML_OPS":
+        target_str="MLOps"
+    elif target == "VAL_OPS":
+        target_str  = "VALOps"
+   
+
+    labels_path = "/data/"+target_str+str(time.time())+".csv"
     # export_type = ctx.params["export_type"]
     export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
