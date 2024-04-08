@@ -1512,11 +1512,11 @@ def _export_samples_inputs(ctx, inputs):
     #         )
     #         default_target = "SELECTED_SAMPLES"
     target_choices = types.RadioGroup()
-    target_choices.add_choice(
-            "DATASET",
-            label="Entire dataset",
-            description="Export the entire dataset",
-        )
+    # target_choices.add_choice(
+    #         "DATASET",
+    #         label="Entire dataset",
+    #         description="Export the entire dataset",
+    #     )
 
     target_choices.add_choice(
             "VAL_OPS",
