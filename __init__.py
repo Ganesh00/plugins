@@ -1692,7 +1692,7 @@ def _export_samples_inputs(ctx, inputs):
         # )
 
         # labels_path = _parse_path(ctx, "labels_path")
-        labels_path = "/data/"+target_str+str(time.time())+".csv"
+        labels_path = "/data/"+target_str+"_"+str(time.time())+".csv"
         if labels_path is None:
             return False
 
@@ -1795,7 +1795,7 @@ def _export_samples(ctx):
         target_str  = "VALOps"
    
 
-    labels_path = "/data/"+target_str+str(time.time())+".csv"
+    labels_path = "/data/"+target_str+"_"+str(time.time())+".csv"
     # export_type = ctx.params["export_type"]
     export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
