@@ -1470,8 +1470,8 @@ class ExportSamples(foo.Operator):
 
 
 def _export_samples_inputs(ctx, inputs):
-    # has_view = ctx.view != ctx.dataset.view()
-    # has_selected = bool(ctx.selected)
+    has_view = ctx.view != ctx.dataset.view()
+    has_selected = bool(ctx.selected)
     # default_target = None
     # #target_choices = types.RadioGroup()
     
@@ -2410,8 +2410,8 @@ def _to_list(value):
 #     return ctx.view
 
 def _get_target_view(ctx, target):
-    if target == "ML_OPS" or target == "VAL_OPS":
-        return ctx.view.select_labels(labels=ctx.selected_labels)
+    # if target == "ML_OPS" or target == "VAL_OPS":
+    #     return ctx.view.select_labels(labels=ctx.selected_labels)
 
     if target == "ML_OPS" or target == "VAL_OPS":
         return ctx.view.select(ctx.selected)
