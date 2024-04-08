@@ -1542,12 +1542,22 @@ def _export_samples_inputs(ctx, inputs):
     target = ctx.params.get("target", default_target)
     target_view = _get_target_view(ctx, target)
 
-    if target == "ML_OPS":
-        target_str = "MLOps"
-    elif target == "VAL_OPS":
-        target_str = "VALOps"
+    if has_selected:
+        if target=="ML_OPS":
+            target_str="MLOps"
+            targetMLVAL_str=f"Selected {ctx.dataset.count()} dataset samples exported for MLOps"
+        if target=="VAL_OPS":
+            target_str="VALOps"
+            targetMLVAL_str=f"Selected {ctx.dataset.count()} dataset samples exported for VALOps"
     else:
-        target_str = "VALOps"
+        if target == "ML_OPS":
+            target_str = "MLOps"
+            targetMLVAL_str=f"All {ctx.dataset.count()} dataset samples exported for MLOps"
+        elif target == "VAL_OPS":
+            target_str = "VALOps"
+            targetMLVAL_str=f"All {ctx.dataset.count()} dataset samples exported for VALOps"
+        else:
+            target_str = "VALOps"
 
     # export_choices = types.Choices()
     # export_choices.add_choice(
@@ -1779,8 +1789,10 @@ def _export_samples_inputs(ctx, inputs):
     size_str = etau.to_human_bytes_str(size_bytes)
     #label = f"Estimated export size: {size_str}"
     label_fpath = f"Data Export File Path for {target_str}: {labels_path}"
+    
     #inputs.view("estimate", types.Notice(label=label))
     inputs.view("filepath",types.Notice(label=label_fpath))
+    inputs.view("samples",types.Notice(label=targetMLVAL_str))
 
     return True
 
