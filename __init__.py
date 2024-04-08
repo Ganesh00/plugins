@@ -1541,12 +1541,12 @@ def _export_samples_inputs(ctx, inputs):
     target = ctx.params.get("target", default_target)
     target_view = _get_target_view(ctx, target)
 
-    if target == "SELECTED_SAMPLES":
-        target_str = "selected samples"
-    elif target == "CURRENT_VIEW":
-        target_str = "current view"
+    if target == "ML_OPS":
+        target_str = "ML_OPS"
+    elif target == "VAL_OPS":
+        target_str = "VAL_OPS"
     else:
-        target_str = "dataset"
+        target_str = "VAL_OPS"
 
     export_choices = types.Choices()
     export_choices.add_choice(
