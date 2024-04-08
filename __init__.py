@@ -1545,10 +1545,10 @@ def _export_samples_inputs(ctx, inputs):
     if has_selected:
         if target=="ML_OPS":
             target_str="MLOps"
-            targetMLVAL_str=f"Selected {ctx.dataset.count()} dataset samples exported for MLOps"
+            targetMLVAL_str=f"Selected {ctx.view.select(ctx.selected).count()} dataset samples exported for MLOps"
         if target=="VAL_OPS":
             target_str="VALOps"
-            targetMLVAL_str=f"Selected {ctx.dataset.count()} dataset samples exported for VALOps"
+            targetMLVAL_str=f"Selected {ctx.view.select(ctx.selected).count()} dataset samples exported for VALOps"
     else:
         if target == "ML_OPS":
             target_str = "MLOps"
