@@ -1786,7 +1786,8 @@ def _export_samples(ctx):
     target = ctx.params.get("target", None)
     export_dir = _parse_path(ctx, "export_dir")
     labels_path = _parse_path(ctx, "labels_path")
-    export_type = ctx.params["export_type"]
+    # export_type = ctx.params["export_type"]
+    export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
     dataset_type = ctx.params.get("dataset_type", None)
     label_field = ctx.params.get("label_field", None)
