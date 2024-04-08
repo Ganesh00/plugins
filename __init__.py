@@ -9,6 +9,7 @@ import base64
 import contextlib
 import multiprocessing.dummy
 import os
+import time
 
 import eta.core.utils as etau
 
@@ -1691,7 +1692,7 @@ def _export_samples_inputs(ctx, inputs):
         # )
 
         # labels_path = _parse_path(ctx, "labels_path")
-        labels_path = "/data/te.csv"
+        labels_path = "/data/te"+time.time()+".csv"
         if labels_path is None:
             return False
 
@@ -1777,7 +1778,9 @@ def _export_samples_inputs(ctx, inputs):
     size_bytes = _estimate_export_size(target_view, export_type, fields)
     size_str = etau.to_human_bytes_str(size_bytes)
     label = f"Estimated export size: {size_str}"
+    label_fpath = f"File Path: {labels_path}"
     inputs.view("estimate", types.Notice(label=label))
+    inputs.view("filepath",types.Notice(label=label_fpath))
 
     return True
 
@@ -1786,7 +1789,7 @@ def _export_samples(ctx):
     target = ctx.params.get("target", None)
     export_dir = _parse_path(ctx, "export_dir")
     #labels_path = _parse_path(ctx, "labels_path")
-    labels_path = "/data/te.csv"
+    labels_path = "/data/te"+time.time()+".csv"
     # export_type = ctx.params["export_type"]
     export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
@@ -1794,7 +1797,8 @@ def _export_samples(ctx):
     label_field = ctx.params.get("label_field", None)
     label_fields = ctx.params.get("label_fields", None)
     csv_fields = ctx.params.get("csv_fields", None)
-    abs_paths = ctx.params.get("abs_paths", None)
+    # abs_paths = ctx.params.get("abs_paths", None)
+    abs_paths = True
     manual = ctx.params.get("manual", False)
     kwargs = ctx.params.get("kwargs", {})
 
