@@ -1542,18 +1542,18 @@ def _export_samples_inputs(ctx, inputs):
     target_view = _get_target_view(ctx, target)
 
     if target == "ML_OPS":
-        target_str = "ML_OPS"
+        target_str = "MLOps"
     elif target == "VAL_OPS":
-        target_str = "VAL_OPS"
+        target_str = "VALOps"
     else:
-        target_str = "VAL_OPS"
+        target_str = "VALOps"
 
-    export_choices = types.Choices()
-    export_choices.add_choice(
-        "FILEPATHS_ONLY",
-        label="Filepaths only",
-        description=f"Export the filepaths of the {target_str}",
-    )
+    # export_choices = types.Choices()
+    # export_choices.add_choice(
+    #     "FILEPATHS_ONLY",
+    #     label="Filepaths only",
+    #     description=f"Export the filepaths of the {target_str}",
+    # )
     # export_choices.add_choice(
     #     "MEDIA_ONLY",
     #     label="Media only",
@@ -1570,97 +1570,100 @@ def _export_samples_inputs(ctx, inputs):
     #     description=f"Export media and labels of the {target_str}",
     # )
 
-    inputs.enum(
-        "export_type",
-        export_choices.values()[0],
-        required=True,
-        label="Export type",
-        description="Choose what to export",
-        view=export_choices,
-    )
+    # inputs.enum(
+    #     "export_type",
+    #     export_choices.values()[0],
+    #     required=True,
+    #     label="Export type",
+    #     description="Choose what to export",
+    #     view=export_choices,
+    # )
 
-    export_type = ctx.params.get("export_type", None)
-    if export_type is None:
-        return False
+    # export_type = ctx.params.get("export_type", None)
+    # if export_type is None:
+    #     return False
 
-    dataset_type = None
-    fields = None
+    #export_type = "FILEPATHS_ONLY"
+    export_type = "LABELS_ONLY"
 
-    if export_type == "FILEPATHS_ONLY":
-        export_type = "LABELS_ONLY"
-        dataset_type = "CSV"
-        fields = ["filepath"]
-    elif export_type in ("LABELS_ONLY", "MEDIA_AND_LABELS"):
-        dataset_types = _get_export_types(
-            target_view, export_type, allow_coercion=True
-        )
-        inputs.enum(
-            "dataset_type",
-            dataset_types,
-            required=True,
-            label="Label format",
-            description="The label format in which to export",
-        )
+    dataset_type = "CSV"
+    fields = ["filepath"]
 
-        dataset_type = ctx.params.get("dataset_type", None)
-        if dataset_type is None:
-            return False
+    # if export_type == "FILEPATHS_ONLY":
+    #     export_type = "LABELS_ONLY"
+    #     dataset_type = "CSV"
+    #     fields = ["filepath"]
+    # elif export_type in ("LABELS_ONLY", "MEDIA_AND_LABELS"):
+    #     dataset_types = _get_export_types(
+    #         target_view, export_type, allow_coercion=True
+    #     )
+    #     inputs.enum(
+    #         "dataset_type",
+    #         dataset_types,
+    #         required=True,
+    #         label="Label format",
+    #         description="The label format in which to export",
+    #     )
 
-        docs_link = _get_docs_link(dataset_type, type="export")
-        inputs.view(
-            "docs", types.Notice(label=f"Exporter documentation: {docs_link}")
-        )
+    #     dataset_type = ctx.params.get("dataset_type", None)
+    #     if dataset_type is None:
+    #         return False
 
-        if dataset_type == "CSV":
-            field_choices = types.Dropdown(multiple=True)
-            for field in _get_csv_fields(target_view):
-                field_choices.add_choice(field, label=field)
+        # docs_link = _get_docs_link(dataset_type, type="export")
+        # inputs.view(
+        #     "docs", types.Notice(label=f"Exporter documentation: {docs_link}")
+        # )
 
-            inputs.list(
-                "csv_fields",
-                types.String(),
-                required=True,
-                label="Fields",
-                description="Field(s) to include as columns of the CSV",
-                view=field_choices,
-            )
+        # if dataset_type == "CSV":
+        #     field_choices = types.Dropdown(multiple=True)
+        #     for field in _get_csv_fields(target_view):
+        #         field_choices.add_choice(field, label=field)
 
-            fields = ctx.params.get("csv_fields", None)
-            if not fields:
-                return False
-        elif _requires_label_field(dataset_type):
-            multiple = _can_export_multiple_fields(dataset_type)
-            label_field_choices = types.Dropdown(multiple=multiple)
-            for field in _get_label_fields(
-                target_view, dataset_type, allow_coercion=True
-            ):
-                label_field_choices.add_choice(field, label=field)
+        #     inputs.list(
+        #         "csv_fields",
+        #         types.String(),
+        #         required=True,
+        #         label="Fields",
+        #         description="Field(s) to include as columns of the CSV",
+        #         view=field_choices,
+        #     )
 
-            if multiple:
-                inputs.list(
-                    "label_fields",
-                    types.String(),
-                    required=True,
-                    label="Label fields",
-                    description="The field(s) containing the labels to export",
-                    view=label_field_choices,
-                )
+        #     fields = ctx.params.get("csv_fields", None)
+        #     if not fields:
+        #         return False
+        # elif _requires_label_field(dataset_type):
+        #     multiple = _can_export_multiple_fields(dataset_type)
+        #     label_field_choices = types.Dropdown(multiple=multiple)
+        #     for field in _get_label_fields(
+        #         target_view, dataset_type, allow_coercion=True
+        #     ):
+        #         label_field_choices.add_choice(field, label=field)
 
-                fields = ctx.params.get("label_fields", None)
-            else:
-                inputs.enum(
-                    "label_field",
-                    label_field_choices.values(),
-                    required=True,
-                    label="Label field",
-                    description="The field containing the labels to export",
-                    view=label_field_choices,
-                )
+        #     if multiple:
+        #         inputs.list(
+        #             "label_fields",
+        #             types.String(),
+        #             required=True,
+        #             label="Label fields",
+        #             description="The field(s) containing the labels to export",
+        #             view=label_field_choices,
+        #         )
 
-                fields = ctx.params.get("label_field", None)
+        #         fields = ctx.params.get("label_fields", None)
+        #     else:
+        #         inputs.enum(
+        #             "label_field",
+        #             label_field_choices.values(),
+        #             required=True,
+        #             label="Label field",
+        #             description="The field containing the labels to export",
+        #             view=label_field_choices,
+        #         )
 
-            if fields is None:
-                return False
+        #         fields = ctx.params.get("label_field", None)
+
+        #     if fields is None:
+        #         return False
 
     # if _can_export_abs_paths(dataset_type):
     #     inputs.bool(
@@ -1673,21 +1676,22 @@ def _export_samples_inputs(ctx, inputs):
     #         view=types.CheckboxView(),
     #     )
 
-    labels_path_type = _get_labels_path_type(dataset_type)
+    #labels_path_type = _get_labels_path_type(dataset_type)
+    labels_path_type = "file"
 
     if labels_path_type == "file":
         ext = _get_labels_path_ext(dataset_type)
-        # file_explorer = types.FileExplorerView(button_label="Choose a file...")
-        # prop = inputs.file(
-        #     "labels_path",
-        #     required=True,
-        #     label="Labels path",
-        #     description=f"Choose a {ext} path to write the labels",
-        #     view=file_explorer,
-        # )
+        file_explorer = types.FileExplorerView(button_label="Choose a file...")
+        prop = inputs.file(
+            "labels_path",
+            required=True,
+            label="Labels path",
+            description=f"Choose a {ext} path to write the labels",
+            view=file_explorer,
+        )
 
-        #labels_path = _parse_path(ctx, "labels_path")
-        labels_path = "\mnt\data"
+        labels_path = _parse_path(ctx, "labels_path")
+        #labels_path = "\mnt\data"
         if labels_path is None:
             return False
 
