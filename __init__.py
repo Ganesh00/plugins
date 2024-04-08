@@ -2397,11 +2397,23 @@ def _to_list(value):
     return list(value)
 
 
+# def _get_target_view(ctx, target):
+#     if target == "SELECTED_LABELS":
+#         return ctx.view.select_labels(labels=ctx.selected_labels)
+
+#     if target == "SELECTED_SAMPLES":
+#         return ctx.view.select(ctx.selected)
+
+#     if target == "DATASET":
+#         return ctx.dataset
+
+#     return ctx.view
+
 def _get_target_view(ctx, target):
-    if target == "SELECTED_LABELS":
+    if target == "ML_OPS" or target == "VAL_OPS":
         return ctx.view.select_labels(labels=ctx.selected_labels)
 
-    if target == "SELECTED_SAMPLES":
+    if target == "ML_OPS" or target == "VAL_OPS":
         return ctx.view.select(ctx.selected)
 
     if target == "DATASET":
