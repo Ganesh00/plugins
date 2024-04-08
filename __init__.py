@@ -2410,11 +2410,11 @@ def _to_list(value):
 #     return ctx.view
 
 def _get_target_view(ctx, target):
-    # if target == "ML_OPS" or target == "VAL_OPS":
-    #     return ctx.view.select_labels(labels=ctx.selected_labels)
+    if ctx.selected:
+        return ctx.view.select(ctx.selected)
 
     if target == "ML_OPS" or target == "VAL_OPS":
-        return ctx.view.select(ctx.selected)
+        return ctx.view
 
     if target == "DATASET":
         return ctx.dataset
