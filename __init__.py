@@ -1258,8 +1258,8 @@ class ExportSamples(foo.Operator):
     @property
     def config(self):
         return foo.OperatorConfig(
-            name="export_samples",
-            label="Export samples",
+            name="tcs_export_samples",
+            label="TCS Export samples",
             light_icon="/assets/icon-light.svg",
             dark_icon="/assets/icon-dark.svg",
             dynamic=True,

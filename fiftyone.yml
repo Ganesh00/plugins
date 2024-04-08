@@ -6,4 +6,4 @@ fiftyone:
 url: https://github.com/voxel51/fiftyone-plugins/tree/main/plugins/io
 license: Apache 2.0
 operators:
-  - export_samples
+  - tcs_export_samples
