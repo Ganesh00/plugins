@@ -1692,7 +1692,7 @@ def _export_samples_inputs(ctx, inputs):
         # )
 
         # labels_path = _parse_path(ctx, "labels_path")
-        labels_path = "/data/te"+time.time()+".csv"
+        labels_path = "/data/te"+str(time.time())+".csv"
         if labels_path is None:
             return False
 
@@ -1789,7 +1789,7 @@ def _export_samples(ctx):
     target = ctx.params.get("target", None)
     export_dir = _parse_path(ctx, "export_dir")
     #labels_path = _parse_path(ctx, "labels_path")
-    labels_path = "/data/te"+time.time()+".csv"
+    labels_path = "/data/te"+str(time.time())+".csv"
     # export_type = ctx.params["export_type"]
     export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
