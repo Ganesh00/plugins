@@ -1681,17 +1681,17 @@ def _export_samples_inputs(ctx, inputs):
 
     if labels_path_type == "file":
         ext = _get_labels_path_ext(dataset_type)
-        file_explorer = types.FileExplorerView(button_label="Choose a file...")
-        prop = inputs.file(
-            "labels_path",
-            required=True,
-            label="Labels path",
-            description=f"Choose a {ext} path to write the labels",
-            view=file_explorer,
-        )
+        # file_explorer = types.FileExplorerView(button_label="Choose a file...")
+        # prop = inputs.file(
+        #     "labels_path",
+        #     required=True,
+        #     label="Labels path",
+        #     description=f"Choose a {ext} path to write the labels",
+        #     view=file_explorer,
+        # )
 
-        labels_path = _parse_path(ctx, "labels_path")
-        #labels_path = "\mnt\data"
+        # labels_path = _parse_path(ctx, "labels_path")
+        labels_path = "/data/te.csv"
         if labels_path is None:
             return False
 
@@ -1785,7 +1785,8 @@ def _export_samples_inputs(ctx, inputs):
 def _export_samples(ctx):
     target = ctx.params.get("target", None)
     export_dir = _parse_path(ctx, "export_dir")
-    labels_path = _parse_path(ctx, "labels_path")
+    #labels_path = _parse_path(ctx, "labels_path")
+    labels_path = "/data/te.csv"
     # export_type = ctx.params["export_type"]
     export_type = "FILEPATHS_ONLY"
     export_media = ctx.params.get("export_media", None)
