@@ -1457,8 +1457,8 @@ class ExportSamples(foo.Operator):
         inputs = types.Object()
 
         ready = _export_samples_inputs(ctx, inputs)
-        if ready:
-            _execution_mode(ctx, inputs)
+        # if ready:
+        #     _execution_mode(ctx, inputs)
 
         return types.Property(inputs, view=types.View(label="Export samples"))
 
